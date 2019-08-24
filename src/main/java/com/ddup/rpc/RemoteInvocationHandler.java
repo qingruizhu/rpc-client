@@ -1,6 +1,8 @@
 package com.ddup.rpc;
+
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
+
 /**
  * 执行真正方法的类，实现 InvocationHandler 接口
  */
@@ -24,6 +26,7 @@ public class RemoteInvocationHandler implements InvocationHandler {
         request.setClassName(method.getDeclaringClass().getName());
         request.setMethodName(method.getName());
         request.setParameters(args);
+        request.setVersion("v2.0");//调用 v2.0 版本
         // 发起网络传输
         RpcNetTransport rpcNetTransport = new RpcNetTransport(host, port);
         Object result = rpcNetTransport.send(request);
